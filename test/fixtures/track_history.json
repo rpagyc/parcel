@@ -1,0 +1,58 @@
+{
+    "trackid": "RP166981607CN",
+    "timestamp": "11:29:37 16.04.2020",
+    "events": [
+        {
+            "date": "06.02.2019",
+            "activity": [
+                {
+                    "time": "18:59",
+                    "zip": "220096",
+                    "city": "г. Алматы, Первомайский, Илийское шоссе 12",
+                    "name": "Участок по обработке международной почты",
+                    "x_dep_id": "000000",
+                    "status": [
+                        "TRANSITSND"
+                    ],
+                    "dep_code": "229900/84/02",
+                    "nondlv_reason": null,
+                    "return_reason": null,
+                    "forward_reason": null
+                },
+                {
+                    "time": "18:59",
+                    "zip": "900533",
+                    "city": "г.Алматы - ул.Макатаева 127",
+                    "name": "Постамат № 53 - ТРЦ Мегапарк",
+                    "x_dep_id": "000000",
+                    "status": [
+                        "ISSPAY"
+                    ],
+                    "dep_code": "059900/225",
+                    "nondlv_reason": null,
+                    "return_reason": null,
+                    "forward_reason": null
+                }
+            ]
+        },
+        {
+            "date": "05.02.2019",
+            "activity": [
+                {
+                    "time": "18:43",
+                    "zip": "220096",
+                    "city": "г. Алматы, Первомайский, Илийское шоссе 12",
+                    "name": "Участок по обработке международной почты",
+                    "x_dep_id": "000000",
+                    "status": [
+                        "SRTRPOREG"
+                    ],
+                    "dep_code": "229900/84/02",
+                    "nondlv_reason": null,
+                    "return_reason": null,
+                    "forward_reason": null
+                }
+            ]
+        }        
+    ]
+}

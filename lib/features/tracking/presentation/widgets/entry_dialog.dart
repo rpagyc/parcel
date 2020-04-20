@@ -1,26 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:kazpost_tracker/bloc/parcel_bloc.dart';
-import 'package:kazpost_tracker/data/parcel.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kazpost_tracker/features/tracking/domain/entities/track.dart';
+import 'package:kazpost_tracker/features/tracking/presentation/bloc/track_bloc.dart';
 
 class EntryDialog extends StatefulWidget {
-  final String trackId;
-  final String label;
-  
-  EntryDialog({Key key, this.trackId, this.label}) : super(key: key);
-  
+  final Track track;
+  final Bloc bloc;
+
+  EntryDialog({Key key, this.track, this.bloc}) : super(key: key);
+
   @override
-  _EntryDialogState createState() => _EntryDialogState();
+  _EntryDialogState createState() => _EntryDialogState(bloc);
 }
 
 class _EntryDialogState extends State<EntryDialog> {
   final trackIdController = TextEditingController();
   final labelController = TextEditingController();
+  final Bloc bloc;
+
+  _EntryDialogState(this.bloc);
 
   @override
   void initState() {
     super.initState();
-    trackIdController.text = widget.trackId;
-    labelController.text = widget.label;
+    trackIdController.text = widget.track?.trackId;
+    labelController.text = widget.track?.label;
   }
 
   @override
@@ -33,13 +37,13 @@ class _EntryDialogState extends State<EntryDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text(widget.trackId == null ? 'Новая Посылка' : 'Редактирование'),
+      title: Text(widget.track == null ? 'Новая Посылка' : 'Редактирование'),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           TextField(
-            autofocus: widget.trackId == null,
-            enabled: widget.trackId == null,
+            autofocus: widget.track == null,
+            enabled: widget.track == null,
             textCapitalization: TextCapitalization.characters,
             decoration: InputDecoration(
               labelText: 'Номер трека',
@@ -48,7 +52,7 @@ class _EntryDialogState extends State<EntryDialog> {
             controller: trackIdController,
           ),
           TextField(
-            autofocus: widget.trackId != null,
+            autofocus: widget.track != null,
             decoration: InputDecoration(
               labelText: 'Описание',
               icon: Icon(Icons.edit),
@@ -59,15 +63,16 @@ class _EntryDialogState extends State<EntryDialog> {
       ),
       actions: <Widget>[
         FlatButton(
-          child: Text(widget.trackId == null ? 'Добавить' : 'Обновить'),
+          child: Text(widget.track == null ? 'Добавить' : 'Обновить'),
           onPressed: () {
             if (trackIdController.text.isNotEmpty) {
-              ParcelBloc().putParcel(
-                Parcel(
-                  trackId: trackIdController.text,
-                  label: labelController.text.isEmpty ? 'Новая посылка' : labelController.text,
-                ),
-              );
+              bloc.add(SaveTrackEvent(
+                  track: Track(
+                trackId: trackIdController.text,
+                label: labelController.text.isEmpty
+                    ? 'Новая посылка'
+                    : labelController.text,
+              )));
             }
             Navigator.pop(context);
           },

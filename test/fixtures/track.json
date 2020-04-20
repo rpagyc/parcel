@@ -1,0 +1,56 @@
+{
+    "trackid" : "RP166981607CN",
+    "timestamp" : "14:15:36 14.04.2020",
+    "direction" : "EXPORT",
+    "status" : "В пути",
+    "status_code" : "SRTSND",
+    "x_status_code" : "Выдан",
+    "x_status" : "SRTSND",
+    "sender" : {
+      "country" : "CN",
+      "name" : "1",
+      "address" : "1",
+      "x_postindex" : "000000"
+    },
+    "origin" : {
+      "date" : "2019-02-03 23:14:21.454",
+      "x_dep_id" : "000000",
+      "city" : "",
+      "dep_name" : "Участок по обработке международной почты",
+      "postindex" : "220096"
+    },
+    "receiver" : {
+      "name" : "SHAKIROV   ROMAN",
+      "name_fact" : "SHAKIROV   ROMAN",
+      "address" : "ALMATY    MAKATAEVA   127",
+      "country" : "KZ",
+      "x_postindex" : "900533"
+    },
+    "last" : {
+      "date" : "2019-02-03 23:14:21.454",
+      "x_dep_id" : "000000",
+      "city" : "",
+      "dep_name" : "Постамат № 53 - ТРЦ Мегапарк",
+      "address" : "г.Алматы - ул.Макатаева 127",
+      "postindex" : "900533"
+    },
+    "delivery" : {
+      "date" : "",
+      "time" : "",
+      "period_fact" : 0,
+      "x_period" : "",
+      "x_dep_id" : "000000",
+      "city" : "",
+      "dep_name" : "Постамат № 53 - ТРЦ Мегапарк",
+      "address" : "г.Алматы - ул.Макатаева 127",
+      "gps" : [ "", "" ],
+      "phone" : "Не указан",
+      "postindex" : "900533"
+    },
+    "storage_period" : "45",
+    "package_type" : "Мелкий пакет СНГ/ДЗ",
+    "category" : "Заказное",
+    "delivery_method" : "Авиа",
+    "dispute" : "",
+    "weight" : 0.152
+  }
