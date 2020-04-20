@@ -1,7 +1,7 @@
 name: kazpost_tracker
 description: Kazpost tracker
 
-version: 3.0.0+3000000
+version: 3.0.1+3000001
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
