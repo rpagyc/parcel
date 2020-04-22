@@ -6,7 +6,8 @@ class AddNewTrack extends StatelessWidget {
   const AddNewTrack({
     Key key,
     @required TrackBloc bloc,
-  }) : _bloc = bloc, super(key: key);
+  })  : _bloc = bloc,
+        super(key: key);
 
   final TrackBloc _bloc;
 

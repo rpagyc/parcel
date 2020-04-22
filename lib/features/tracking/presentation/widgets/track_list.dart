@@ -23,7 +23,7 @@ class TrackList extends StatelessWidget {
       itemBuilder: (context, index) {
         final track = trackList[index];
         return Card(
-                  child: Dismissible(
+          child: Dismissible(
             child: ListTile(
               leading: CircleAvatar(
                 backgroundImage: AssetImage('images/parcel_icon.png'),

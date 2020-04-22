@@ -33,6 +33,24 @@ void main() {
     );
   });
 
+  void runTestsOnline(Function body) {
+    group('device is online', () {
+      setUp(() {
+        when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
+      });
+      body();
+    });
+  }
+
+  void runTestsOffline(Function body) {
+    group('device is offline', () {
+      setUp(() {
+        when(mockNetworkInfo.isConnected).thenAnswer((_) async => false);
+      });
+      body();
+    });
+  }
+
   group('getTrackList', () {
     final tTrackModelList = [
       TrackModel(trackId: '1', label: 'test'),
@@ -76,38 +94,124 @@ void main() {
     final tTrackId = '1';
     final tTrackDetailsModel = TrackDetailsModel(trackId: '1', label: 'test');
     test(
-      'should return remote data when the call to remote data source is successful',
+      'should check if the device is online',
       () async {
         // arrange
         when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
-        when(mockRemoteDataSource.getTrackDetails(any))
-            .thenAnswer((_) async => tTrackDetailsModel);
         // act
-        final result = await repository.getTrackDetails(tTrackId);
+        repository.getTrackDetails(tTrackId);
         // assert
-        verify(mockRemoteDataSource.getTrackDetails(tTrackId));
-        expect(result, equals(Right(tTrackDetailsModel)));
+        verify(mockNetworkInfo.isConnected);
       },
     );
+
+    runTestsOnline(() {
+      test(
+        'should return remote data when the call to remote data source is successful',
+        () async {
+          // arrange
+          when(mockRemoteDataSource.getTrackDetails(any))
+              .thenAnswer((_) async => tTrackDetailsModel);
+          // act
+          final result = await repository.getTrackDetails(tTrackId);
+          // assert
+          verify(mockRemoteDataSource.getTrackDetails(tTrackId));
+          expect(result, equals(Right(tTrackDetailsModel)));
+        },
+      );
+
+      test(
+        'should cache the data locally when the call to remote data source is successful',
+        () async {
+          // arrange
+          when(mockRemoteDataSource.getTrackDetails(any))
+              .thenAnswer((_) async => tTrackDetailsModel);
+          // act
+          await repository.getTrackDetails(tTrackId);
+          // assert
+          verify(mockRemoteDataSource.getTrackDetails(tTrackId));
+          verify(mockLocalDataSource.saveTrackDetails(tTrackDetailsModel));
+        },
+      );
+    });
+
+    runTestsOffline(() {
+      test(
+        'should return last locally cached data when the cached data is present',
+        () async {
+          // arrange
+          when(mockLocalDataSource.getTrackDetails(tTrackId))
+              .thenAnswer((_) async => tTrackDetailsModel);
+          // act
+          final result = await repository.getTrackDetails(tTrackId);
+          // assert
+          verifyZeroInteractions(mockRemoteDataSource);
+          verify(mockLocalDataSource.getTrackDetails(tTrackId));
+          expect(result, equals(Right(tTrackDetailsModel)));
+        },
+      );
+    });
   });
 
   group('getTrackHistory', () {
     final tTrackId = '1';
     final tTrackHistoryModel = TrackHistoryModel(trackId: '1');
     test(
-      'should return remote data when the call to remote data source is successful',
+      'should check if the device is online',
       () async {
         // arrange
         when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
-        when(mockRemoteDataSource.getTrackHistory(any))
-            .thenAnswer((_) async => tTrackHistoryModel);
         // act
-        final result = await repository.getTrackHistory(tTrackId);
+        repository.getTrackDetails(tTrackId);
         // assert
-        verify(mockRemoteDataSource.getTrackHistory(tTrackId));
-        expect(result, equals(Right(tTrackHistoryModel)));
+        verify(mockNetworkInfo.isConnected);
       },
     );
+    runTestsOnline(() {
+      test(
+        'should return remote data when the call to remote data source is successful',
+        () async {
+          // arrange
+          when(mockRemoteDataSource.getTrackHistory(any))
+              .thenAnswer((_) async => tTrackHistoryModel);
+          // act
+          final result = await repository.getTrackHistory(tTrackId);
+          // assert
+          verify(mockRemoteDataSource.getTrackHistory(tTrackId));
+          expect(result, equals(Right(tTrackHistoryModel)));
+        },
+      );
+      test(
+        'should cache the data locally when the call to remote data source is successful',
+        () async {
+          // arrange
+         when(mockRemoteDataSource.getTrackHistory(any))
+              .thenAnswer((_) async => tTrackHistoryModel);
+          // act
+          await repository.getTrackHistory(tTrackId);
+          // assert
+          verify(mockRemoteDataSource.getTrackHistory(tTrackId));
+          verify(mockLocalDataSource.saveTrackHistory(tTrackHistoryModel));
+        },
+      );
+    });
+
+    runTestsOffline(() {
+      test(
+        'should return last locally cached data when the cached data is present',
+        () async {
+          // arrange
+          when(mockLocalDataSource.getTrackHistory(tTrackId))
+              .thenAnswer((_) async => tTrackHistoryModel);
+          // act
+          final result = await repository.getTrackHistory(tTrackId);
+          // assert
+          verifyZeroInteractions(mockRemoteDataSource);
+          verify(mockLocalDataSource.getTrackHistory(tTrackId));
+          expect(result, equals(Right(tTrackHistoryModel)));
+        },
+      );
+    });
   });
 
   group('deleteTrack', () {

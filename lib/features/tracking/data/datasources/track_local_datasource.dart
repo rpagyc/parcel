@@ -33,8 +33,8 @@ class TrackLocalDataSourceImpl implements TrackLocalDataSource {
 
   @override
   Future<List<TrackModel>> getTrackList() async {
-    final recordSnashots = await tracks.find(await _db);
-    final result = recordSnashots
+    final recordSnapshots = await tracks.find(await _db);
+    final result = recordSnapshots
         .map((snapshot) => TrackModel.fromJson(snapshot.value))
         .toList();
     return result;

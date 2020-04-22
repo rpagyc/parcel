@@ -2,6 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:kazpost_tracker/features/tracking/data/app_database.dart';
 import 'package:kazpost_tracker/features/tracking/data/datasources/track_local_datasource.dart';
 import 'package:kazpost_tracker/features/tracking/data/models/track_details_model.dart';
+import 'package:kazpost_tracker/features/tracking/data/models/track_history_model.dart';
 import 'package:kazpost_tracker/features/tracking/data/models/track_model.dart';
 import 'package:mockito/mockito.dart';
 import 'package:sembast/sembast.dart';
@@ -89,7 +90,7 @@ void main() {
     );
   });
 
-  group('getTrackDetails', (){
+  group('getTrackDetails', () {
     final tTrackDetails = TrackDetailsModel(trackId: '123', label: 'test');
     final tRecord = MockRecord();
     final tTrackId = '123';
@@ -98,12 +99,29 @@ void main() {
       () async {
         // arrange
         when(details.record(any)).thenReturn(tRecord);
-        when(tRecord.get(any)).thenAnswer((_) async => Future.value(tTrackDetails.toJson()));
+        when(tRecord.get(any))
+            .thenAnswer((_) async => Future.value(tTrackDetails.toJson()));
         // act
         final result = await dataSource.getTrackDetails(tTrackId);
         // assert
         expect(result, tTrackDetails);
       },
     );
+  });
+
+  group('getTrackHistory', () {
+    final tRecord = MockRecord();
+    final tTrackId = '123';
+    final tTrackHistory = TrackHistoryModel(trackId: '123', error: 'error');
+    test('should return track history', () async {
+      // arrange
+      when(history.record(any)).thenReturn(tRecord);
+      when(tRecord.get(any))
+          .thenAnswer((_) async => Future.value(tTrackHistory.toJson()));
+      // act
+      final result = await dataSource.getTrackHistory(tTrackId);
+      // assert
+      expect(result, tTrackHistory);
+    });
   });
 }
