@@ -16,7 +16,7 @@ class Details extends StatelessWidget {
           children: <Widget>[
             Text(
               'Информация',
-              style: Theme.of(context).textTheme.title,
+              style: Theme.of(context).textTheme.headline6,
             ),
             Divider(),
             Text(

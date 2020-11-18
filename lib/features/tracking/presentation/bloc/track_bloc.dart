@@ -45,7 +45,8 @@ class TrackBloc extends Bloc<TrackEvent, TrackState> {
       yield* _loadTrackList();
     } else if (event is GetTrackDetailsAndHistoryEvent) {
       yield Loading();
-      final detailsCall = await getTrackDetails(event.trackId);
+      var either = await getTrackDetails(event.trackId);
+      final detailsCall = either;
       final historyCall = await getTrackHistory(event.trackId);
       var details = detailsCall.fold((f) => null, (details) => details);
       var history = historyCall.fold((f) => null, (history) => history);
