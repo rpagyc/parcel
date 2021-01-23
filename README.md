@@ -1,16 +1,31 @@
-# kazpost_tracker
+# Parcel
+Android application assists to find and track parcel deliveries by track number.
 
-A new Flutter project.
+## Project status
+![Build](https://github.com/rpagyc/parcel/workflows/Build/badge.svg?branch=master)
 
-## Getting Started
+## Get it on
+[<img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png' width="200"/>](https://play.google.com/store/apps/details?id=com.digittonic.kazposttracker)
 
-This project is a starting point for a Flutter application.
+## Main features
+...
 
-A few resources to get you started if this is your first Flutter project:
+## Screenshots
+...
 
-- [Lab: Write your first Flutter app](https://flutter.io/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.io/docs/cookbook)
+## License
+```
+Copyright 2021 Roman Shakirov
 
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.io/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+```
